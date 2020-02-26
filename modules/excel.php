@@ -4,6 +4,7 @@ require '../vendor/autoload.php';
 if(isset($_POST["submit"])) {
     $data = $_FILES['file']['tmp_name'];
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($data);
+    $spreadsheet->setReadDataOnly(true);
     $worksheet = $spreadsheet->getActiveSheet();
     $highestRow = $worksheet->getHighestRow();
     $highestColumn = $worksheet->getHighestColumn();
@@ -18,9 +19,9 @@ if(isset($_POST["submit"])) {
                 $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
                 $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
-                if ($key != null && $value != null) {
+                // if ($key != null && $value != null) {
                     $data[$key] = $value;
-                }
+                // }
             }
         }
         array_push($rows,$data);
