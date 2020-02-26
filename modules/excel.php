@@ -9,6 +9,8 @@ if(isset($_POST["submit"])) {
     if(in_array(end(explode('.', $filename)), $exts)){
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setReadDataOnly(true); 
+        $worksheet->setReadEmptyCells(false);
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
         $getActiveCell = $worksheet->getActiveCell();
