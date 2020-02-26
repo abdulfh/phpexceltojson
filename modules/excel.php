@@ -8,21 +8,22 @@ if(isset($_POST["submit"])) {
     $highestRow = $worksheet->getHighestRow();
     $highestColumn = $worksheet->getHighestColumn();
     $getActiveCell = $worksheet->getActiveCell();
+    $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn);
+    
     $rows = [];
-    for($row=2;$row<$highestRow;$row++){ 
-        $nama = $worksheet->getCell('A'.$row)->getValue();
-        $bc_user = $worksheet->getCell('B'.$row)->getValue();
-        $divisi = $worksheet->getCell('C'.$row)->getValue();
-        $lokasi = $worksheet->getCell('D'.$row)->getValue();
-        $nik = $worksheet->getCell('E'.$row)->getValue();
+    for($row=1;$row<$highestRow;$row++){ 
+        $data = [];
+        for ($col = 1; $col <= $highestColumnIndex;$col++) {
+            $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
+            $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
-        array_push($rows,array(
-            "nama" => $nama,
-            "bc_user" => $bc_user,
-            "divisi" => $divisi,
-            "lokasi" => $lokasi,
-            "nik" => $nik
-        ));
+            if ($key != null && $value != null) {
+                $data[$key] = $value;
+                // array_push($data,[$key => $value]);
+            }
+        }
+        array_push($rows,$data);
     }
+
     echo json_encode($rows);
 }
