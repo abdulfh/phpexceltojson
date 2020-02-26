@@ -9,8 +9,6 @@ if(isset($_POST["submit"])) {
     if(in_array(end(explode('.', $filename)), $exts)){
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->setReadDataOnly(true); 
-        $worksheet->setReadEmptyCells(false);
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
         $getActiveCell = $worksheet->getActiveCell();
@@ -20,18 +18,14 @@ if(isset($_POST["submit"])) {
         for($row=1;$row<$highestRow;$row++){ 
             $data = [];
             for ($col = 1; $col <= $highestColumnIndex;$col++) {
-                if (!empty($row)) {
-                    $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
-                    $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
+                $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
+                $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
-                    if ($key != null) {
-                        $data[$key] = $value;
-                    }
+                if ($key != null) {
+                    $data[$key] = $value;
                 }
             }
-            if (!empty($data)) {
-                array_push($rows,$data);
-            }
+            array_push($rows,$data);
         }
 
         echo json_encode($rows);
