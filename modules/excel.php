@@ -3,7 +3,7 @@
 require '../vendor/autoload.php';
 if(isset($_POST["submit"])) {
     $file = $_FILES['file']['tmp_name'];
-    $filename = $_FILES['video_file']['name'];
+    $filename = $_FILES['file']['name'];
 
     $exts = array('xls', 'xlsx'); 
     if(in_array(end(explode('.', $filename)), $exts)){
