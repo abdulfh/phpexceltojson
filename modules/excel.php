@@ -33,6 +33,7 @@ if(isset($_POST["submit"])) {
         }
 
         echo json_encode($rows);
+    }else{
+        echo "File Type Not Allowed !";
     }
-    echo "File Type Not Allowed !";
 }
