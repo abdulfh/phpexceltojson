@@ -1,0 +1,8 @@
+{
+    "name": "abdulfatah/fileupload",
+    "description": "For File Upload Excel To JSON",
+    "license": "MIT",
+    "require": {
+        "phpoffice/phpspreadsheet": "^1.10"
+    }
+}
