@@ -23,10 +23,8 @@ if(isset($_POST["submit"])) {
 
                 if ($key != null && $value != null) {
                     $data[$key] = $value;
-                }elseif($key != null && $value != true){
+                }elseif($key != null && $value == false){
                     $data[$key] = false;
-                }else{
-                    $data[$key] = null;
                 }
             }
             array_push($rows,$data);
