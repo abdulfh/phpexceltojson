@@ -4,7 +4,6 @@ require '../vendor/autoload.php';
 if(isset($_POST["submit"])) {
     $data = $_FILES['file']['tmp_name'];
     $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($data);
-    $spreadsheet->setReadDataOnly(true);
     $worksheet = $spreadsheet->getActiveSheet();
     $highestRow = $worksheet->getHighestRow();
     $highestColumn = $worksheet->getHighestColumn();
