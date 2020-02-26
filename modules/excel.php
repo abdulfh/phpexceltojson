@@ -21,9 +21,9 @@ if(isset($_POST["submit"])) {
                 $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
                 $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
-                if ($value != null) {
+                if ($key != null && $value != null) {
                     $data[$key] = $value;
-                }elseif($value != true){
+                }elseif($key != null && $value != true){
                     $data[$key] = false;
                 }else{
                     $data[$key] = null;
