@@ -22,10 +22,15 @@ if(isset($_POST["submit"])) {
                 $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
                 if ($key != null && $value != null) {
-                    $data[$key] = $value;
-                }elseif($key != null && $value == false){
-                    $data[$key] = false;
+                    if (is_bool($value) && $value == false) {
+                        $data[$key] = false;
+                    }else{
+                        $data[$key] = $value;
+                    }
                 }
+                // elseif($key != null && is_bool($value)){
+                //     $data[$key] = null;
+                // }
             }
             array_push($rows,$data);
         }
