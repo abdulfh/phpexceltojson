@@ -4,7 +4,7 @@ require '../vendor/autoload.php';
 if(isset($_POST["submit"])) {
     $file = $_FILES['file']['tmp_name'];
     $filename = $_FILES['video_file']['name'];
-    
+
     $exts = array('xls', 'xlsx'); 
     if(in_array(end(explode('.', $filename)), $exts)){
         $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
@@ -34,4 +34,5 @@ if(isset($_POST["submit"])) {
 
         echo json_encode($rows);
     }
+    echo "File Type Not Allowed !";
 }
