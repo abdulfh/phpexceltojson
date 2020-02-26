@@ -14,12 +14,13 @@ if(isset($_POST["submit"])) {
     for($row=1;$row<$highestRow;$row++){ 
         $data = [];
         for ($col = 1; $col <= $highestColumnIndex;$col++) {
-            $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
-            $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
+            if (!empty($row)) {
+                $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
+                $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
-            if ($key != null && $value != null) {
-                $data[$key] = $value;
-                // array_push($data,[$key => $value]);
+                if ($key != null && $value != null) {
+                    $data[$key] = $value;
+                }
             }
         }
         array_push($rows,$data);
