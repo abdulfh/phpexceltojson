@@ -18,9 +18,9 @@ if(isset($_POST["submit"])) {
                 $key = $worksheet->getCellByColumnAndRow($col, 1)->getValue();
                 $value = $worksheet->getCellByColumnAndRow($col, $row+1)->getValue();
 
-                // if ($key != null && $value != null) {
+                if ($key != null) {
                     $data[$key] = $value;
-                // }
+                }
             }
         }
         array_push($rows,$data);
