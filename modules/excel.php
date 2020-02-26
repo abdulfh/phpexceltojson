@@ -23,7 +23,9 @@ if(isset($_POST["submit"])) {
                 }
             }
         }
-        array_push($rows,$data);
+        if (!empty($data)) {
+            array_push($rows,$data);
+        }
     }
 
     echo json_encode($rows);
