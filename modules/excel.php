@@ -7,7 +7,11 @@ if(isset($_POST["submit"])) {
 
     $exts = array('xls', 'xlsx'); 
     if(in_array(end(explode('.', $filename)), $exts)){
-        $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($file);
+        $reader->setReadDataOnly(true);
+        $reader->setReadEmptyCells(false);
+        $spreadsheet = $reader->load($file);
+        // $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
