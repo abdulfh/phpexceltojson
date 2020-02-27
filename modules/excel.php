@@ -1,17 +1,26 @@
 <?php
 
 require '../vendor/autoload.php';
+require 'function.php';
+
 if(isset($_POST["submit"])) {
+    /**
+     * Call Check String If JSON
+     */
+    $function = new Helper();
+
     $file = $_FILES['file']['tmp_name'];
     $filename = $_FILES['file']['name'];
 
     $exts = array('xls', 'xlsx'); 
     if(in_array(end(explode('.', $filename)), $exts)){
+        /**
+        * Call PHP SpreadSheet Function
+        */
         $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($file);
         $reader->setReadDataOnly(true);
         $reader->setReadEmptyCells(false);
         $spreadsheet = $reader->load($file);
-        // $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow();
         $highestColumn = $worksheet->getHighestColumn();
@@ -29,7 +38,11 @@ if(isset($_POST["submit"])) {
                     if (is_bool($value) && $value == false) {
                         $data[$key] = false;
                     }else{
-                        $data[$key] = $value;
+                        if ($function->isJSON($value)) {
+                            $data[$key] = json_decode($value);
+                        }else{
+                            $data[$key] = $value;
+                        }
                     }
                 }
             }
